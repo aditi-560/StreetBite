@@ -30,8 +30,9 @@ export default function RoleSelectScreen() {
 
   const handleSelectCustomer = async () => {
     setHasNavigated(true);
-    await setRole("customer");
-    router.replace("/customer/menu");
+    // Clear any existing customer role to force login
+    await setRole(null);
+    router.push("/customer/login");
   };
 
   const handleSelectVendor = async () => {

@@ -39,6 +39,14 @@ function RootLayoutNav() {
     >
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen
+        name="customer/login"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="customer/otp"
+        options={{ title: "Verify OTP" }}
+      />
+      <Stack.Screen
         name="customer/qr-scanner"
         options={{
           title: "Scan QR Code",

@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Colors from "@/constants/colors";
 import { useApp } from "@/context/AppContext";
@@ -29,7 +30,15 @@ const CATEGORIES: { key: MenuItemCategory | "all"; label: string; emoji: string 
 export default function MenuScreen() {
   const { cart, cartCount, cartTotal, vendor, setRole } = useApp();
   const [activeCategory, setActiveCategory] = useState<MenuItemCategory | "all">("all");
+  const [customerName, setCustomerName] = useState("");
   const insets = useSafeAreaInsets();
+
+  React.useEffect(() => {
+    // Load customer name
+    AsyncStorage.getItem('customerName').then((name) => {
+      if (name) setCustomerName(name);
+    });
+  }, []);
 
   const filtered =
     activeCategory === "all"
@@ -41,12 +50,27 @@ export default function MenuScreen() {
   const handleBackToHome = async () => {
     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     await setRole(null);
+    // Clear customer data
+    await AsyncStorage.multiRemove(['customerData', 'customerName', 'customerPhone']);
     router.replace("/");
   };
 
   return (
     <View style={styles.container}>
       <View style={[styles.header, { paddingTop: topPadding + 16 }]}>
+        {customerName ? (
+          <View style={styles.welcomeRow}>
+            <Text style={styles.welcomeText}>Hi, {customerName}! 👋</Text>
+            <Pressable
+              style={({ pressed }) => [styles.ordersBtn, pressed && { opacity: 0.7 }]}
+              onPress={() => router.push("/customer/tracking")}
+            >
+              <Feather name="list" size={18} color={Colors.primary} />
+              <Text style={styles.ordersBtnText}>My Orders</Text>
+            </Pressable>
+          </View>
+        ) : null}
+        
         <View style={styles.headerTop}>
           <Pressable
             style={({ pressed }) => [styles.backBtn, pressed && { opacity: 0.6 }]}
@@ -170,6 +194,31 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 8,
     elevation: 3,
+  },
+  welcomeRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 12,
+  },
+  welcomeText: {
+    fontSize: 16,
+    fontFamily: "Inter_600SemiBold",
+    color: Colors.light.text,
+  },
+  ordersBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    backgroundColor: Colors.accentLight,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+  },
+  ordersBtnText: {
+    fontSize: 13,
+    fontFamily: "Inter_600SemiBold",
+    color: Colors.primary,
   },
   headerTop: {
     flexDirection: "row",
