@@ -1,0 +1,151 @@
+You are an expert Flutter developer and UI/UX designer. Build a complete, production-ready Flutter frontend for the project described below.
+
+PROJECT NAME: Smart Street Vendor Order Management System
+
+GOAL:
+Create a mobile app with two roles (Customer and Vendor) that allows users to order food from street vendors via QR code, track orders in real-time, and allows vendors to manage orders efficiently.
+
+TECH STACK:
+
+* Flutter (latest stable version)
+* State Management: Provider (preferred)
+* Firebase integration-ready (do not implement backend logic deeply, but structure code for easy Firebase integration)
+* Clean Architecture + Modular code
+
+APP REQUIREMENTS:
+
+1. APP STRUCTURE:
+
+* Single Flutter app with role-based navigation (Customer / Vendor)
+* Clean folder structure:
+  lib/
+  models/
+  screens/
+  customer/
+  vendor/
+  widgets/
+  providers/
+  services/
+  utils/
+
+2. CUSTOMER FEATURES:
+
+A. QR Scanner Screen
+
+* Use mobile_scanner package
+* Scan QR and extract vendor ID
+
+B. Menu Screen
+
+* Display list of food items (name, image, price, add button)
+* Use dummy JSON data initially
+* सुंदर modern UI with cards
+
+C. Cart Screen
+
+* Add/remove items
+* Increase/decrease quantity
+* Show total price
+
+D. Order Confirmation Screen
+
+* Show order summary
+* "Place Order" button
+
+E. Token Screen
+
+* Display token number
+* Estimated wait time
+
+F. Order Tracking Screen
+
+* Show status: Pending → Preparing → Ready
+* Use StreamBuilder (mock stream for now)
+
+3. VENDOR FEATURES:
+
+A. Login Screen
+
+* Phone input UI (no backend needed)
+* OTP UI screen
+
+B. Vendor Dashboard
+
+* List of incoming orders
+* Each order card shows:
+
+  * Token number
+  * Items
+  * Status
+
+C. Order Management
+
+* Buttons:
+
+  * Accept
+  * Preparing
+  * Ready
+* Update UI state instantly
+
+D. Queue Display Screen
+
+* Show current token and next tokens
+
+4. UI/UX REQUIREMENTS:
+
+* Modern, clean, minimal UI
+* Use Material 3
+* Food-themed color palette (orange/red)
+* Responsive design
+* Smooth animations (optional but preferred)
+* Large buttons for usability
+
+5. STATE MANAGEMENT:
+
+* Use Provider
+* Create:
+
+  * CartProvider
+  * OrderProvider
+
+6. REUSABLE COMPONENTS:
+
+* FoodCard Widget
+* OrderCard Widget
+* Custom Button Widget
+* Loading Indicator
+
+7. NAVIGATION:
+
+* Use named routes
+* Role-based routing (Customer / Vendor)
+
+8. CODE QUALITY:
+
+* Clean, readable, well-commented code
+* Separate UI and logic
+* Follow best practices
+* Avoid hardcoding values
+
+9. MOCK DATA:
+
+* Create dummy data for:
+
+  * Menu items
+  * Orders
+
+10. BONUS (if possible):
+
+* Add basic animations
+* Add empty state UI
+* Add loading skeletons
+
+OUTPUT FORMAT:
+
+* Provide full Flutter project code
+* Include all files with proper structure
+* Clearly mention where to add Firebase later
+* Ensure code runs without errors
+
+IMPORTANT:
+Do NOT skip any screen. Generate COMPLETE working frontend code.
